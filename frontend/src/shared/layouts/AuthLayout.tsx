@@ -1,4 +1,3 @@
-import { ShieldCheck } from 'lucide-react';
 import { Outlet } from 'react-router-dom';
 
 /**
@@ -25,12 +24,12 @@ export default function AuthLayout() {
 
       <div className="w-full max-w-sm">
         <header className="mb-6 flex flex-col items-center text-center">
-          <span
-            className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-600 text-white shadow-pop ring-4 ring-brand-100 dark:ring-brand-900/60"
-            aria-hidden
-          >
-            <ShieldCheck className="h-7 w-7" />
-          </span>
+          <img
+            src="/brasao-logo-1x.png"
+            alt=""
+            className="h-24 w-auto object-contain drop-shadow-md"
+            aria-hidden="true"
+          />
           <p className="mt-4 font-display text-lg font-semibold tracking-tight text-ink">
             Demandas RR
           </p>
