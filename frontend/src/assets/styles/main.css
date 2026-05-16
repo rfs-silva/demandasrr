@@ -1,0 +1,113 @@
+/* Fontes via CDN — display:swap pra render imediato. */
+@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================================
+   Design tokens — institucional moderno
+=========================================================================== */
+@layer base {
+  :root {
+    --color-surface: 255 255 255;
+    --color-surface-elevated: 255 255 255;
+    --color-surface-muted: 248 250 252;
+    --color-surface-subtle: 241 245 249;
+
+    --color-ink: 15 23 42;
+    --color-ink-muted: 71 85 105;
+    --color-ink-subtle: 148 163 184;
+    --color-ink-inverted: 248 250 252;
+
+    --color-border: 226 232 240;
+    --color-border-strong: 203 213 225;
+    --color-border-subtle: 241 245 249;
+
+    --color-ring: 22 163 74;
+  }
+
+  .dark {
+    --color-surface: 15 23 42;
+    --color-surface-elevated: 30 41 59;
+    --color-surface-muted: 30 41 59;
+    --color-surface-subtle: 51 65 85;
+
+    --color-ink: 248 250 252;
+    --color-ink-muted: 148 163 184;
+    --color-ink-subtle: 100 116 139;
+    --color-ink-inverted: 15 23 42;
+
+    --color-border: 51 65 85;
+    --color-border-strong: 71 85 105;
+    --color-border-subtle: 30 41 59;
+
+    --color-ring: 34 197 94;
+  }
+
+  html {
+    @apply h-full antialiased;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+
+  /* Safe area para devices com notch (iPhone) */
+  @supports (padding: max(0px)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  }
+
+  @supports (font-variation-settings: normal) {
+    html { font-family: 'Inter var', 'Inter', system-ui, sans-serif; }
+  }
+
+  body {
+    @apply h-full bg-surface-muted text-ink font-sans;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+  }
+
+  h1, h2, h3 {
+    @apply font-display tracking-tight;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-offset-2 ring-offset-surface ring-brand-500;
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-border-strong) / 0.6);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--color-border-strong) / 0.9);
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-border bg-surface shadow-card transition-shadow;
+  }
+  .card-interactive {
+    @apply hover:shadow-card-hover hover:border-border-strong;
+  }
+  .field-label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink-muted;
+  }
+  .field-hint {
+    @apply mt-1.5 text-xs text-ink-muted;
+  }
+  .field-error {
+    @apply mt-1.5 text-xs font-medium text-red-600 dark:text-red-400;
+  }
+  .section-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-wider text-ink-subtle;
+  }
+}
