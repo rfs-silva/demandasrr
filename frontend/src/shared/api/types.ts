@@ -62,7 +62,7 @@ export interface Pessoa {
   id: string;
   nome: string;
   cpf: string;
-  data_nascimento: string;
+  data_nascimento: string | null;
   municipio: Municipio;
   localidade: string | null;
   situacao: Situacao;

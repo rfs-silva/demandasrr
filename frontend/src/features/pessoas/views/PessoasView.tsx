@@ -209,7 +209,7 @@ export default function PessoasView() {
                         : p.municipio.nome}
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-ink-muted">
-                      {formatDateBR(p.data_nascimento)}
+                      {p.data_nascimento ? formatDateBR(p.data_nascimento) : 'Não informado'}
                     </td>
                     <td className="px-4 py-3">
                       <span

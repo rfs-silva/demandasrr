@@ -85,7 +85,7 @@ async def _ensure_pessoa_para_usuario(
         pessoa = Pessoa(
             nome=usuario.nome,
             cpf=usuario.cpf,
-            data_nascimento=usuario.data_nascimento or _data_nascimento_placeholder(),
+            data_nascimento=usuario.data_nascimento,
             municipio_id=usuario.municipio_id,
             localidade=usuario.localidade,
             situacao=Situacao.ativo,
@@ -102,15 +102,6 @@ async def _ensure_pessoa_para_usuario(
     usuario.pessoa_id = pessoa.id
     await session.flush()
     return pessoa
-
-
-def _data_nascimento_placeholder():
-    """Placeholder quando o usuário não informa (campo opcional do usuário,
-    mas a Pessoa precisa). Coerente com o sentinela da migration 0003."""
-    from datetime import date
-
-    return date(1900, 1, 1)
-
 
 def _perfis_permitidos_para_criar_por(requester: Usuario) -> frozenset[PerfilUsuario]:
     """Define quais perfis o `requester` pode atribuir ao criar/editar um usuário.

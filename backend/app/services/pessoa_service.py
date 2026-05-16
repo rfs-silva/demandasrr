@@ -72,7 +72,7 @@ async def atualizar(session: AsyncSession, pessoa_id: UUID, body: PessoaUpdate) 
 
     if body.nome is not None:
         pessoa.nome = body.nome
-    if body.data_nascimento is not None:
+    if "data_nascimento" in body.model_fields_set:
         pessoa.data_nascimento = body.data_nascimento
     if body.situacao is not None:
         pessoa.situacao = body.situacao

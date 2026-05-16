@@ -11,13 +11,15 @@ const cpfField = z
 const SITUACAO = ['ativo', 'inativo'] as const;
 
 const dataNasc = z
-  .string({ required_error: 'Informe a data de nascimento' })
+  .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, 'Data inválida')
   .refine((v) => {
     const d = new Date(v);
     if (Number.isNaN(d.getTime())) return false;
     return d.getFullYear() >= 1900 && d <= new Date();
-  }, 'Data de nascimento inválida');
+  }, 'Data de nascimento inválida')
+  .optional()
+  .or(z.literal(''));
 
 export const pessoaCreateSchema = z.object({
   nome: z.string().trim().min(3, 'Nome muito curto').max(150, 'Nome muito longo'),

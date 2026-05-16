@@ -76,7 +76,7 @@ export default function PessoaFormDialog({
     if (editing) {
       uForm.reset({
         nome: editing.nome,
-        data_nascimento: editing.data_nascimento,
+        data_nascimento: editing.data_nascimento ?? '',
         municipio_id: editing.municipio.id,
         localidade: editing.localidade ?? '',
         situacao: editing.situacao,
@@ -99,7 +99,7 @@ export default function PessoaFormDialog({
       await createMut.mutateAsync({
         nome: values.nome,
         cpf: digitsOnly(values.cpf),
-        data_nascimento: values.data_nascimento,
+        data_nascimento: values.data_nascimento || null,
         municipio_id: values.municipio_id,
         localidade: values.localidade || null,
       });
@@ -122,7 +122,7 @@ export default function PessoaFormDialog({
         id: editing.id,
         payload: {
           nome: values.nome,
-          data_nascimento: values.data_nascimento,
+          data_nascimento: values.data_nascimento || null,
           municipio_id: values.municipio_id,
           localidade: values.localidade || null,
           situacao: values.situacao,
@@ -178,9 +178,8 @@ export default function PessoaFormDialog({
               hint="CPF é imutável."
             />
             <BaseInput
-              label="Data de nascimento"
+              label="Data de nascimento (opcional)"
               type="date"
-              required
               error={uForm.formState.errors.data_nascimento?.message}
               disabled={submitting}
               {...uForm.register('data_nascimento')}
@@ -259,9 +258,8 @@ export default function PessoaFormDialog({
               )}
             />
             <BaseInput
-              label="Data de nascimento"
+              label="Data de nascimento (opcional)"
               type="date"
-              required
               error={cForm.formState.errors.data_nascimento?.message}
               disabled={submitting}
               {...cForm.register('data_nascimento')}

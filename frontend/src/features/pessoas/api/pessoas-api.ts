@@ -12,7 +12,7 @@ export interface PessoasFilter {
 export interface PessoaCreatePayload {
   nome: string;
   cpf: string;
-  data_nascimento: string;
+  data_nascimento?: string | null;
   municipio_id: string;
   localidade?: string | null;
 }
@@ -21,7 +21,7 @@ export type PessoaUpdatePayload = Partial<{
   nome: string;
   municipio_id: string;
   localidade: string | null;
-  data_nascimento: string;
+  data_nascimento: string | null;
   situacao: Situacao;
 }>;
 

@@ -31,7 +31,7 @@ class PessoaBase(BaseModel):
 
 class PessoaCreate(PessoaBase):
     cpf: str = Field(min_length=11, max_length=14)
-    data_nascimento: date
+    data_nascimento: date | None = None
 
     @field_validator("cpf")
     @classmethod
@@ -43,8 +43,8 @@ class PessoaCreate(PessoaBase):
 
     @field_validator("data_nascimento")
     @classmethod
-    def _valida_data(cls, v: date) -> date:
-        return _validar_data_nascimento(v)
+    def _valida_data(cls, v: date | None) -> date | None:
+        return _validar_data_nascimento(v) if v is not None else None
 
     @field_validator("nome", "localidade")
     @classmethod
@@ -84,7 +84,7 @@ class PessoaOut(BaseModel):
     id: UUID
     nome: str
     cpf: str
-    data_nascimento: date
+    data_nascimento: date | None
     municipio: MunicipioOut
     localidade: str | None
     situacao: Situacao

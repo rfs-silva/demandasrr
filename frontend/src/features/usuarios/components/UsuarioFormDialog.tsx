@@ -291,11 +291,11 @@ export default function UsuarioFormDialog({
             <p className="mt-3 text-xs text-brand-800 dark:text-brand-200">
               {createdLogin ? (
                 <>
-                  Login inicial: <strong>{createdLogin}</strong>. No primeiro acesso ele é
-                  obrigado a trocar a senha por uma pessoal.
+                  Primeiro acesso: entre com o login <strong>{createdLogin}</strong> e altere
+                  a senha inicial para uma senha pessoal.
                 </>
               ) : (
-                'No primeiro acesso ele é obrigado a trocar a senha por uma pessoal.'
+                'Primeiro acesso: entre com o login informado e altere a senha inicial para uma senha pessoal.'
               )}
             </p>
           </div>

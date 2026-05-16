@@ -142,13 +142,15 @@ export default function PessoaDetalheView() {
                   Nascimento
                 </dt>
                 <dd className="mt-0.5 font-medium text-ink">
-                  {pessoa ? (
+                  {pessoa?.data_nascimento ? (
                     <>
                       {formatDateBR(pessoa.data_nascimento)}
                       {idade !== null && (
                         <span className="font-normal text-ink-muted"> ({idade} anos)</span>
                       )}
                     </>
+                  ) : pessoa ? (
+                    'Não informado'
                   ) : (
                     <BaseSkeleton width="8rem" />
                   )}

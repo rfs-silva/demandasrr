@@ -5,7 +5,6 @@ import { useMemo, useState } from 'react';
 import { messageFor } from '@shared/api/error-messages';
 import type { Solicitacao, StatusSolicitacao } from '@shared/api/types';
 import BaseButton from '@shared/components/BaseButton';
-import BaseInput from '@shared/components/BaseInput';
 import BaseSkeleton from '@shared/components/BaseSkeleton';
 import EmptyState from '@shared/components/EmptyState';
 import PageHeader from '@shared/components/PageHeader';
@@ -92,26 +91,60 @@ export default function LocalizarDemandaView() {
         description="Busque somente pelo código da demanda. Ao encontrar, o administrador pode mover a demanda para qualquer status por patch, sem atualizar título, área ou descrição."
       />
 
-      <div className="card p-4 sm:p-5">
+      <div className="card overflow-hidden">
+        <div className="border-b border-border bg-surface-muted/60 px-4 py-3 sm:flex sm:items-center sm:justify-between sm:gap-4">
+          <div className="flex items-center gap-3">
+            <span className="grid h-10 w-10 flex-none place-items-center rounded-lg bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-200">
+              <Search className="h-5 w-5" aria-hidden />
+            </span>
+            <div className="min-w-0">
+              <h2 className="font-display text-base font-semibold tracking-tight text-ink">
+                Pesquisa por código
+              </h2>
+              <p className="mt-0.5 text-sm text-ink-muted">
+                Informe o código completo para abrir a demanda exata.
+              </p>
+            </div>
+          </div>
+        </div>
         <form
-          className="flex flex-col gap-3 sm:flex-row sm:items-end"
+          className="grid gap-3 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:p-5"
           onSubmit={(event) => {
             event.preventDefault();
             buscarPorCodigo();
           }}
         >
-          <BaseInput
-            label="Código da demanda"
-            placeholder="Ex.: DM-1234567890AB"
-            value={codigoDigitado}
-            onChange={(event) => setCodigoDigitado(event.target.value.toUpperCase())}
-            className="sm:flex-1"
-            autoComplete="off"
-            spellCheck={false}
-          />
-          <BaseButton type="submit" disabled={!normalizarCodigo(codigoDigitado)}>
-            <Search className="h-4 w-4" />
-            Buscar
+          <div>
+            <label htmlFor="codigo-demanda" className="field-label">
+              Código da demanda
+            </label>
+            <div className="relative">
+              <Search
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-subtle"
+                aria-hidden
+              />
+              <input
+                id="codigo-demanda"
+                type="search"
+                placeholder="Ex.: DM-1234567890AB"
+                value={codigoDigitado}
+                onChange={(event) => setCodigoDigitado(event.target.value.toUpperCase())}
+                className="block h-11 w-full rounded-lg border border-border bg-surface py-2 pl-10 pr-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink shadow-sm placeholder:font-sans placeholder:font-normal placeholder:normal-case placeholder:tracking-normal placeholder:text-ink-subtle focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                autoComplete="off"
+                spellCheck={false}
+              />
+            </div>
+            <p className="field-hint">Use exatamente o código exibido na demanda.</p>
+          </div>
+          <BaseButton
+            type="submit"
+            size="lg"
+            loading={query.isFetching}
+            disabled={!normalizarCodigo(codigoDigitado)}
+            className="h-11 w-full rounded-lg px-5 sm:mt-[1.375rem] sm:w-auto"
+          >
+            {query.isFetching ? null : <Search className="h-4 w-4" />}
+            Localizar
           </BaseButton>
         </form>
       </div>

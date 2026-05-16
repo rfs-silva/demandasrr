@@ -29,7 +29,7 @@ class Pessoa(UUIDPK, TimestampMixin, Base):
 
     nome: Mapped[str] = mapped_column(String(150), nullable=False)
     cpf: Mapped[str] = mapped_column(String(11), nullable=False, unique=True)
-    data_nascimento: Mapped[date] = mapped_column(Date(), nullable=False)
+    data_nascimento: Mapped[date | None] = mapped_column(Date(), nullable=True)
 
     municipio_id: Mapped[UUID] = mapped_column(
         ForeignKey("municipio.id", ondelete="RESTRICT"),

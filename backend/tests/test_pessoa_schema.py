@@ -38,6 +38,13 @@ def test_create_strips_empty_localidade():
     assert p.localidade is None
 
 
+def test_create_aceita_data_nascimento_ausente():
+    payload = _base()
+    payload.pop("data_nascimento")
+    p = PessoaCreate(**payload)
+    assert p.data_nascimento is None
+
+
 @pytest.mark.parametrize("cpf", ["123", "11111111111", "abcdefghijk", ""])
 def test_cpf_invalido_rejeitado(cpf):
     with pytest.raises(ValidationError):
